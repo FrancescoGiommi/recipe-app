@@ -8,7 +8,7 @@ export default function Navbar() {
           </span>
 
           <button className="rounded-full bg-orange-100 px-4 py-2 text-sm font-medium text-orange-700">
-            ❤️ Favorites
+            ❤️ Preferiti
           </button>
         </nav>
       </header>

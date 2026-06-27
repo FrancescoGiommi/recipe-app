@@ -1,12 +1,11 @@
-import RecipeGrid from "./components/recipe/recipeGrid";
-import { mockRecipes } from "./data/mockRecipes";
+import Navbar from "./components/layout/Navbar";
+import HomePage from "./pages/HomePage";
 
 function App() {
   return (
     <>
-      <main className="flex min-h-screen items-center justify-center bg-orange-50">
-        <RecipeGrid recipes={mockRecipes} />
-      </main>
+      <Navbar />
+      <HomePage />
     </>
   );
 }

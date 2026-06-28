@@ -10,6 +10,25 @@ export default function FavoritesPage({
   favoriteRecipes,
   onToggleFavorite,
 }: FavoritesPageProps) {
+  if (favoriteRecipes.length === 0) {
+    return (
+      <main className="min-h-screen bg-orange-50">
+        <div className="mx-auto flex min-h-[70vh] max-w-7xl items-center justify-center px-6">
+          <div className="text-center">
+            <p className="mb-4 text-6xl">❤️</p>
+
+            <h1 className="text-3xl font-bold text-slate-900">
+              Nessuna ricetta preferita
+            </h1>
+
+            <p className="mt-3 text-lg text-slate-600">
+              Torna alla Home e clicca sul cuore di una ricetta per salvarla
+            </p>
+          </div>
+        </div>
+      </main>
+    );
+  }
   return (
     <>
       <main className="min-h-screen bg-orange-50">

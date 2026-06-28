@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import type { Recipe } from "../../types/recipe";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
 
 interface RecipeCardProps {
   recipe: Recipe;
@@ -20,7 +21,11 @@ function RecipeCard({ recipe, isFavorite, onToggleFavorite }: RecipeCardProps) {
             }}
             className="absolute right-3 top-3 rounded-full bg-white p-2 shadow"
           >
-            {isFavorite ? "❤️" : "🤍"}
+            {isFavorite ? (
+              <FaHeart className="text-red-500" />
+            ) : (
+              <FaRegHeart className="text-slate-700" />
+            )}
           </button>
           <img
             src={recipe.image}

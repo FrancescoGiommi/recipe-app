@@ -1,5 +1,6 @@
 import type { Recipe } from "../types/recipe";
 import RecipeGrid from "../components/recipe/recipeGrid";
+import { FaHeart } from "react-icons/fa";
 
 interface FavoritesPageProps {
   favoriteRecipes: Recipe[];
@@ -15,7 +16,7 @@ export default function FavoritesPage({
       <main className="min-h-screen bg-orange-50">
         <div className="mx-auto flex min-h-[70vh] max-w-7xl items-center justify-center px-6">
           <div className="text-center">
-            <p className="mb-4 text-6xl">❤️</p>
+            <FaHeart className="mx-auto mb-4 text-6xl text-red-500" />
 
             <h1 className="text-3xl font-bold text-slate-900">
               Nessuna ricetta preferita

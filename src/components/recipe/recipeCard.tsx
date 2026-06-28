@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import type { Recipe } from "../../types/recipe";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
+import DifficultyIndicator from "../ui/DifficultyIndicator";
 
 interface RecipeCardProps {
   recipe: Recipe;
@@ -42,9 +43,9 @@ function RecipeCard({ recipe, isFavorite, onToggleFavorite }: RecipeCardProps) {
               {recipe.readyInMinutes} min - {recipe.servings} porzioni
             </p>
 
-            <p className="mt-2 text-sm  font-medium  text-orange-600">
-              Difficoltà: {recipe.difficulty}
-            </p>
+            <div className="flex items-center gap-2">
+              <DifficultyIndicator difficulty={recipe.difficulty} />
+            </div>
           </div>
         </article>
       </Link>

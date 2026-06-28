@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import type { Recipe } from "./types/recipe";
 
@@ -11,7 +11,15 @@ import RecipeDetailsPage from "./pages/RecipeDetailsPage";
 import FavoritesPage from "./pages/FavoritesPage";
 
 function App() {
-  const [favoriteRecipes, setFavoriteRecipes] = useState<Recipe[]>([]);
+  const [favoriteRecipes, setFavoriteRecipes] = useState<Recipe[]>(() => {
+    const savedFavorites = localStorage.getItem("favoriteRecipes");
+
+    if (!savedFavorites) {
+      return [];
+    }
+
+    return JSON.parse(savedFavorites) as Recipe[];
+  });
 
   function toggleFavorite(recipe: Recipe) {
     setFavoriteRecipes((currentFavorites) => {
@@ -26,6 +34,10 @@ function App() {
       return [...currentFavorites, recipe];
     });
   }
+
+  useEffect(() => {
+    localStorage.setItem("favoriteRecipes", JSON.stringify(favoriteRecipes));
+  }, [favoriteRecipes]);
 
   return (
     <BrowserRouter>

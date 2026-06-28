@@ -11,13 +11,14 @@ function RecipeCard({ recipe, isFavorite, onToggleFavorite }: RecipeCardProps) {
   return (
     <>
       <Link to={`/recipe/${recipe.id}`}>
-        <article className="overflow-hidden  rounded-2xl  bg-white  shadow-md">
+        <article className="relative overflow-hidden  rounded-2xl  bg-white  shadow-md">
           <button
             type="button"
             onClick={(event) => {
               event.preventDefault();
               onToggleFavorite(recipe);
             }}
+            className="absolute right-3 top-3 rounded-full bg-white p-2 shadow"
           >
             {isFavorite ? "❤️" : "🤍"}
           </button>

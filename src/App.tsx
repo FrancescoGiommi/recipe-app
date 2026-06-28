@@ -19,7 +19,7 @@ function App() {
         (favorite) => favorite.id === recipe.id,
       );
 
-      if (!isAlreadyFavorites) {
+      if (isAlreadyFavorites) {
         return currentFavorites.filter((favorite) => favorite.id !== recipe.id);
       }
 

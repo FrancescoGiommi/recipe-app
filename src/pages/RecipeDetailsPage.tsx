@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import type { Recipe } from "../types/recipe";
 import { Link, useParams } from "react-router-dom";
 import { mockRecipes } from "../data/mockRecipes";
@@ -14,6 +15,8 @@ export default function RecipeDetailsPage({
 }: RecipeDetailsPageProps) {
   const { id } = useParams();
 
+  const navigate = useNavigate();
+
   const recipe = mockRecipes.find((recipe) => recipe.id === Number(id));
 
   if (!recipe) {
@@ -28,6 +31,7 @@ export default function RecipeDetailsPage({
     <>
       <main className="min-h-screen bg-orange-50">
         <div className="mx-auto max-w-5xl px-6 py-12">
+          <button onClick={() => navigate(-1)}>← Torna indietro</button>
           <div className="relative mt-6">
             {/* Bottone preferiti */}
             <button

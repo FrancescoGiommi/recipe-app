@@ -7,6 +7,11 @@ export interface Ingredient {
   unit: string;
 }
 
+export interface Instruction {
+  step: number;
+  text: string;
+}
+
 export interface Recipe {
   id: number;
   title: string;
@@ -17,5 +22,6 @@ export interface Recipe {
   difficulty: Difficulty;
   ingredients: Ingredient[];
   tags: string[];
+  instructions: Instruction[];
   isFavorite: boolean;
 }

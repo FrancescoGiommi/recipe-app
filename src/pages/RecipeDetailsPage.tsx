@@ -29,6 +29,7 @@ export default function RecipeDetailsPage({
       <main className="min-h-screen bg-orange-50">
         <div className="mx-auto max-w-5xl px-6 py-12">
           <div className="relative mt-6">
+            {/* Bottone preferiti */}
             <button
               type="button"
               onClick={(event) => {
@@ -44,6 +45,7 @@ export default function RecipeDetailsPage({
               )}
             </button>
 
+            {/* Immagine */}
             <img
               src={recipe.image}
               alt={recipe.title}
@@ -51,11 +53,57 @@ export default function RecipeDetailsPage({
             />
           </div>
 
+          {/* Titolo */}
           <h1 className="text-4xl font-bold text-slate-900">{recipe.title}</h1>
 
+          {/* Durata e porzioni */}
           <p className="mt-4 text-slate-700">
             {recipe.readyInMinutes} min - {recipe.servings} porzioni
           </p>
+
+          {/* Descrizione */}
+          <p className="mt-4 text-slate-700">{recipe.description}</p>
+
+          <div className="mt-8">
+            {/* Ingredienti */}
+            <h2 className="text-2xl font-bold text-slate-900">Ingredienti</h2>
+
+            <ul className="mt-4 space-y-2">
+              {recipe.ingredients.map((ingredient) => (
+                <li key={ingredient.id} className="text-slate-700">
+                  {ingredient.amount} {ingredient.unit} - {ingredient.name}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="mt-8">
+            {/* Istruzioni e step */}
+            <h2 className="text-2xl font-bold text-slate-900">Procedimento</h2>
+
+            <ol className="mt-4 space-y-3">
+              {recipe.instructions.map((istruction) => (
+                <li key={istruction.step} className="text-slate-700">
+                  <span className="font-bold text-orange-600">
+                    Step {istruction.step}:
+                  </span>{" "}
+                  {istruction.text}
+                </li>
+              ))}
+            </ol>
+          </div>
+
+          {/* Tags */}
+          <div className="mt-8 flex flex-wrap gap-2">
+            {recipe.tags.map((tag) => (
+              <span
+                key={tag}
+                className="rounded-full bg-orange-100 px-3 py-1 text-sm font-medium text-orange-700"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
         </div>
       </main>
     </>

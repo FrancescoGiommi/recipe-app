@@ -18,6 +18,24 @@ export const mockRecipes: Recipe[] = [
       },
     ],
     tags: ["Italian", "Pasta"],
+    instructions: [
+      {
+        step: 1,
+        text: "Porta a ebollizione abbondante acqua salata.",
+      },
+      {
+        step: 2,
+        text: "Cuoci gli spaghetti fino a cottura al dente.",
+      },
+      {
+        step: 3,
+        text: "Mescola uova e pecorino in una ciotola.",
+      },
+      {
+        step: 4,
+        text: "Unisci il guanciale croccante e manteca la pasta.",
+      },
+    ],
     isFavorite: false,
   },
   {
@@ -37,6 +55,24 @@ export const mockRecipes: Recipe[] = [
       },
     ],
     tags: ["Italian", "Pasta"],
+    instructions: [
+      {
+        step: 1,
+        text: "Porta a ebollizione abbondante acqua salata.",
+      },
+      {
+        step: 2,
+        text: "Cuoci la pasta fino a cottura al dente.",
+      },
+      {
+        step: 3,
+        text: "Mescola uova e pecorino in una ciotola.",
+      },
+      {
+        step: 4,
+        text: "Unisci il guanciale croccante e manteca la pasta.",
+      },
+    ],
     isFavorite: false,
   },
   {
@@ -56,6 +92,24 @@ export const mockRecipes: Recipe[] = [
       },
     ],
     tags: ["Italian", "Pizza"],
+    instructions: [
+      {
+        step: 1,
+        text: "Porta a ebollizione abbondante acqua salata.",
+      },
+      {
+        step: 2,
+        text: "Cuoci gli spaghetti fino a cottura al dente.",
+      },
+      {
+        step: 3,
+        text: "Mescola uova e pecorino in una ciotola.",
+      },
+      {
+        step: 4,
+        text: "Unisci il guanciale croccante e manteca la pasta.",
+      },
+    ],
     isFavorite: false,
   },
   {
@@ -75,6 +129,24 @@ export const mockRecipes: Recipe[] = [
       },
     ],
     tags: ["Italian", "Pasta"],
+    instructions: [
+      {
+        step: 1,
+        text: "Porta a ebollizione abbondante acqua salata.",
+      },
+      {
+        step: 2,
+        text: "Cuoci gli spaghetti fino a cottura al dente.",
+      },
+      {
+        step: 3,
+        text: "Mescola uova e pecorino in una ciotola.",
+      },
+      {
+        step: 4,
+        text: "Unisci il guanciale croccante e manteca la pasta.",
+      },
+    ],
     isFavorite: false,
   },
 ];

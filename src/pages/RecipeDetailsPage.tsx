@@ -2,7 +2,16 @@ import { useNavigate } from "react-router-dom";
 import type { Recipe } from "../types/recipe";
 import { Link, useParams } from "react-router-dom";
 import { mockRecipes } from "../data/mockRecipes";
-import { FaHeart, FaRegHeart } from "react-icons/fa";
+import DifficultyIndicator from "../components/ui/DifficultyIndicator";
+
+// Icone
+import {
+  FaHeart,
+  FaRegHeart,
+  FaClock,
+  FaUsers,
+  FaSignal,
+} from "react-icons/fa";
 
 interface RecipeDetailsPageProps {
   favoriteRecipes: Recipe[];
@@ -60,10 +69,22 @@ export default function RecipeDetailsPage({
           {/* Titolo */}
           <h1 className="text-4xl font-bold text-slate-900">{recipe.title}</h1>
 
-          {/* Durata e porzioni */}
-          <p className="mt-4 text-slate-700">
-            {recipe.readyInMinutes} min - {recipe.servings} porzioni
-          </p>
+          {/* Durata, porzioni e difficoltà */}
+          <div className="mt-4 flex items-center gap-6 text-slate-700">
+            <div className="flex items-center gap-2">
+              <FaClock className="text-orange-500" />
+              <span>{recipe.readyInMinutes} min</span>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <FaUsers className="text-orange-500" />
+              <span>{recipe.servings} porzioni</span>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <DifficultyIndicator difficulty={recipe.difficulty} />
+            </div>
+          </div>
 
           {/* Descrizione */}
           <p className="mt-4 text-slate-700">{recipe.description}</p>

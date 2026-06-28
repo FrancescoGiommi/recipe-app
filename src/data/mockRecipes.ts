@@ -45,7 +45,7 @@ export const mockRecipes: Recipe[] = [
     description: "Traditional italian pasta",
     readyInMinutes: 30,
     servings: 4,
-    difficulty: "easy",
+    difficulty: "hard",
     ingredients: [
       {
         id: 1,
@@ -119,7 +119,7 @@ export const mockRecipes: Recipe[] = [
     description: "Traditional italian pasta",
     readyInMinutes: 25,
     servings: 4,
-    difficulty: "easy",
+    difficulty: "medium",
     ingredients: [
       {
         id: 1,

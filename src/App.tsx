@@ -55,7 +55,15 @@ function App() {
         />
 
         {/* Pagina di dettaglio */}
-        <Route path="/recipe/:id" element={<RecipeDetailsPage />} />
+        <Route
+          path="/recipe/:id"
+          element={
+            <RecipeDetailsPage
+              favoriteRecipes={favoriteRecipes}
+              onToggleFavorite={toggleFavorite}
+            />
+          }
+        />
 
         {/* Preferiti */}
         <Route

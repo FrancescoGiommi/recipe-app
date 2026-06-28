@@ -1,9 +1,18 @@
 import RecipeGrid from "../components/recipe/recipeGrid";
+import type { Recipe } from "../types/recipe";
 import { useState } from "react";
 import { mockRecipes } from "../data/mockRecipes";
 import SearchBar from "../components/ui/SearchBar";
 
-export default function HomePage() {
+interface HomePageProps {
+  favoriteRecipes: Recipe[];
+  onToggleFavorite: (recipe: Recipe) => void;
+}
+
+export default function HomePage({
+  favoriteRecipes,
+  onToggleFavorite,
+}: HomePageProps) {
   const [search, setSearch] = useState("");
 
   const filteredRecipes = mockRecipes.filter((recipe) =>
@@ -15,7 +24,11 @@ export default function HomePage() {
       <main className="min-h-screen bg-orange-50">
         <div className="mx-auto max-w-7xl px-6 py-16">
           <SearchBar value={search} onChange={setSearch} />
-          <RecipeGrid recipes={filteredRecipes} />
+          <RecipeGrid
+            recipes={filteredRecipes}
+            favoriteRecipes={favoriteRecipes}
+            onToggleFavorite={onToggleFavorite}
+          />
         </div>
       </main>
     </>

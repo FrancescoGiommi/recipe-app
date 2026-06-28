@@ -3,13 +3,24 @@ import type { Recipe } from "../../types/recipe";
 
 interface RecipeCardProps {
   recipe: Recipe;
+  isFavorite: boolean;
+  onToggleFavorite: (recipe: Recipe) => void;
 }
 
-function RecipeCard({ recipe }: RecipeCardProps) {
+function RecipeCard({ recipe, isFavorite, onToggleFavorite }: RecipeCardProps) {
   return (
     <>
       <Link to={`/recipe/${recipe.id}`}>
         <article className="overflow-hidden  rounded-2xl  bg-white  shadow-md">
+          <button
+            type="button"
+            onClick={(event) => {
+              event.preventDefault();
+              onToggleFavorite(recipe);
+            }}
+          >
+            {isFavorite ? "❤️" : "🤍"}
+          </button>
           <img
             src={recipe.image}
             alt={recipe.title}

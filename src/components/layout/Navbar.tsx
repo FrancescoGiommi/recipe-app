@@ -1,15 +1,24 @@
+import { NavLink, Link } from "react-router-dom";
+
 export default function Navbar() {
   return (
     <>
       <header className="bg-white shadow-sm">
         <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4">
-          <span className="text-2xl font-bold text-orange-600">
+          <Link to={"/"} className="text-2xl font-bold text-orange-600">
             RecipeHub 🍽️
-          </span>
+          </Link>
 
-          <button className="rounded-full bg-orange-100 px-4 py-2 text-sm font-medium text-orange-700">
+          <NavLink
+            to="/favorites"
+            className={({ isActive }) =>
+              isActive
+                ? "bg-orange-500 text-white"
+                : "bg-orange-100 text-orange-700"
+            }
+          >
             ❤️ Preferiti
-          </button>
+          </NavLink>
         </nav>
       </header>
     </>

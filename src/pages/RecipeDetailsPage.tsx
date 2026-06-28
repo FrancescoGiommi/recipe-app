@@ -106,16 +106,16 @@ export default function RecipeDetailsPage({
             {/* Istruzioni e step */}
             <h2 className="text-2xl font-bold text-slate-900">Procedimento</h2>
 
-            <ol className="mt-4 space-y-3">
-              {recipe.instructions.map((istruction) => (
-                <li key={istruction.step} className="text-slate-700">
+            <div className="mt-4 space-y-3">
+              {recipe.instructions.map((instruction) => (
+                <p key={instruction.step} className="text-slate-700">
                   <span className="font-bold text-orange-600">
-                    Step {istruction.step}:
+                    Step {instruction.step}:
                   </span>{" "}
-                  {istruction.text}
-                </li>
+                  {instruction.text}
+                </p>
               ))}
-            </ol>
+            </div>
           </div>
 
           {/* Tags */}

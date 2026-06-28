@@ -6,9 +6,9 @@ import SearchBar from "../components/ui/SearchBar";
 export default function HomePage() {
   const [search, setSearch] = useState("");
 
-  const filteredRecipes = mockRecipes.filter((recipe) => {
-    recipe.title.toLowerCase().includes(search.toLowerCase());
-  });
+  const filteredRecipes = mockRecipes.filter((recipe) =>
+    recipe.title.toLowerCase().trim().includes(search.toLowerCase().trim()),
+  );
 
   return (
     <>

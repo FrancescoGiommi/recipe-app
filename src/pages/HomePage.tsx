@@ -24,11 +24,18 @@ export default function HomePage({
       <main className="min-h-screen bg-orange-50">
         <div className="mx-auto max-w-7xl px-6 py-16">
           <SearchBar value={search} onChange={setSearch} />
-          <RecipeGrid
-            recipes={filteredRecipes}
-            favoriteRecipes={favoriteRecipes}
-            onToggleFavorite={onToggleFavorite}
-          />
+
+          {filteredRecipes.length > 0 ? (
+            <RecipeGrid
+              recipes={filteredRecipes}
+              favoriteRecipes={favoriteRecipes}
+              onToggleFavorite={onToggleFavorite}
+            />
+          ) : (
+            <p className="mt-16 text-center text-lg text-slate-600">
+              Nessuna ricetta trovata, prova con un altro nome
+            </p>
+          )}
         </div>
       </main>
     </>

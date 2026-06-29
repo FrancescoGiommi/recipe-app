@@ -14,7 +14,7 @@ export default function HomePage({
   favoriteRecipes,
   onToggleFavorite,
 }: HomePageProps) {
-  const [search, setSearch] = useState("Pasta");
+  const [search, setSearch] = useState("");
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");

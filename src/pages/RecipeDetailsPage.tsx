@@ -1,17 +1,11 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import type { Recipe } from "../types/recipe";
-import { Link, useParams } from "react-router-dom";
-import { mockRecipes } from "../data/mockRecipes";
+import { useState, useEffect } from "react";
 import DifficultyIndicator from "../components/ui/DifficultyIndicator";
+import { getMealById } from "../services/mealDbService";
 
 // Icone
-import {
-  FaHeart,
-  FaRegHeart,
-  FaClock,
-  FaUsers,
-  FaSignal,
-} from "react-icons/fa";
+import { FaHeart, FaRegHeart, FaClock, FaUsers } from "react-icons/fa";
 
 interface RecipeDetailsPageProps {
   favoriteRecipes: Recipe[];
@@ -24,9 +18,42 @@ export default function RecipeDetailsPage({
 }: RecipeDetailsPageProps) {
   const { id } = useParams();
 
-  const navigate = useNavigate();
+  const [recipe, setRecipe] = useState<Recipe | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState("");
 
-  const recipe = mockRecipes.find((recipe) => recipe.id === Number(id));
+  useEffect(() => {
+    async function fetchRecipe() {
+      if (!id) return;
+
+      try {
+        setIsLoading(true);
+        setError("");
+
+        const data = await getMealById(id);
+        setRecipe(data);
+      } catch (error) {
+        if (error instanceof Error) {
+          setError(error.message);
+        } else {
+          setError("Errore sconosciuto");
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    fetchRecipe();
+  }, [id]);
+
+  const navigate = useNavigate();
+  if (isLoading) {
+    return <p>Caricamento...</p>;
+  }
+
+  if (error) {
+    return <p>{error}</p>;
+  }
 
   if (!recipe) {
     return <h1>Ricetta non trovata</h1>;

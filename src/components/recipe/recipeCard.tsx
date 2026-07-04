@@ -39,9 +39,11 @@ function RecipeCard({ recipe, isFavorite, onToggleFavorite }: RecipeCardProps) {
               {recipe.title}
             </h2>
 
-            <p className="mt-2  text-sm  text-slate-600">
-              {recipe.readyInMinutes} min - {recipe.servings} porzioni
-            </p>
+            {recipe.readyInMinutes > 0 && recipe.servings > 0 && (
+              <p className="mt-2 text-sm text-slate-600">
+                {recipe.readyInMinutes} min - {recipe.servings} porzioni
+              </p>
+            )}
 
             <div className="flex items-center gap-2">
               <DifficultyIndicator difficulty={recipe.difficulty} />

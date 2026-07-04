@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { searchMeals } from "../services/mealDbService";
 import { mockRecipes } from "../data/mockRecipes";
 import SearchBar from "../components/ui/SearchBar";
+import EmptyState from "../components/ui/EmpyState";
 
 interface HomePageProps {
   favoriteRecipes: Recipe[];
@@ -54,12 +55,20 @@ export default function HomePage({
 
           {error && <p className="text-center text-red-600">{error}</p>}
 
-          {!isLoading && !error && (
-            <RecipeGrid
-              recipes={recipes}
-              favoriteRecipes={favoriteRecipes}
-              onToggleFavorite={onToggleFavorite}
+          {!isLoading && !error && recipes.length === 0 ? (
+            <EmptyState
+              title="Nessuna ricetta trovata"
+              description="Prova a cercare un altro piatto."
             />
+          ) : (
+            !isLoading &&
+            !error && (
+              <RecipeGrid
+                recipes={recipes}
+                favoriteRecipes={favoriteRecipes}
+                onToggleFavorite={onToggleFavorite}
+              />
+            )
           )}
         </div>
       </main>

@@ -19,6 +19,7 @@ export default function HomePage({
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState(search);
 
   useEffect(() => {
     async function fetchRecipes() {
@@ -26,7 +27,7 @@ export default function HomePage({
         setIsLoading(true);
         setError("");
 
-        const data = await searchMeals(search);
+        const data = await searchMeals(debouncedSearch);
         setRecipes(data);
       } catch (error) {
         if (error instanceof Error) {
@@ -39,6 +40,14 @@ export default function HomePage({
       }
     }
     fetchRecipes();
+  }, [debouncedSearch]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearch(search);
+    }, 500);
+
+    return () => clearTimeout(timer);
   }, [search]);
 
   return (

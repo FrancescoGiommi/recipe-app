@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import type { Recipe } from "./types/recipe";
+import { Toaster, toast } from "react-hot-toast";
 
 // Componenti
 import Navbar from "./components/layout/Navbar";
@@ -28,9 +29,11 @@ function App() {
       );
 
       if (isAlreadyFavorites) {
+        toast.success("Ricetta rimossa dai preferiti");
         return currentFavorites.filter((favorite) => favorite.id !== recipe.id);
       }
 
+      toast.success("Ricetta aggiunta ai preferiti");
       return [...currentFavorites, recipe];
     });
   }
@@ -41,6 +44,7 @@ function App() {
 
   return (
     <BrowserRouter>
+      <Toaster position="top-right" />
       <Navbar />
       <Routes>
         {/* Pagina Home */}

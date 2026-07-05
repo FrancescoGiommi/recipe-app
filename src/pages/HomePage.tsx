@@ -20,7 +20,9 @@ export default function HomePage({
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState(search);
+  const [selectedDifficulty, setSelectedDifficulty] = useState("all");
 
+  // Chiamata API per ottenere le ricette
   useEffect(() => {
     async function fetchRecipes() {
       try {
@@ -42,6 +44,7 @@ export default function HomePage({
     fetchRecipes();
   }, [debouncedSearch]);
 
+  // Debounce
   useEffect(() => {
     const timer = setTimeout(() => {
       setDebouncedSearch(search);
@@ -49,6 +52,15 @@ export default function HomePage({
 
     return () => clearTimeout(timer);
   }, [search]);
+
+  // Funzione per filtrare per difficoltà
+  const filteredRecipes = recipes.filter((recipe) => {
+    if (selectedDifficulty === "all") {
+      return true;
+    }
+
+    return recipe.difficulty === selectedDifficulty;
+  });
 
   return (
     <>
@@ -66,6 +78,17 @@ export default function HomePage({
 
           {error && <p className="text-center text-red-600">{error}</p>}
 
+          <select
+            value={selectedDifficulty}
+            onChange={(event) => setSelectedDifficulty(event.target.value)}
+            className="mb-8 rounded-xl border border-orange-200 bg-white px-4 py-3 text-slate-700 outline-none focus:border-orange-500"
+          >
+            <option value="all">Tutte le difficoltà</option>
+            <option value="easy">Facile</option>
+            <option value="medium">Media</option>
+            <option value="hard">Difficile</option>
+          </select>
+
           {!isLoading && !error && recipes.length === 0 ? (
             <EmptyState
               title="Nessuna ricetta trovata"
@@ -75,7 +98,7 @@ export default function HomePage({
             !isLoading &&
             !error && (
               <RecipeGrid
-                recipes={recipes}
+                recipes={filteredRecipes}
                 favoriteRecipes={favoriteRecipes}
                 onToggleFavorite={onToggleFavorite}
               />

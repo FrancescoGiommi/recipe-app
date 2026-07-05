@@ -5,6 +5,7 @@ import { searchMeals } from "../services/mealDbService";
 import { mockRecipes } from "../data/mockRecipes";
 import SearchBar from "../components/ui/SearchBar";
 import EmptyState from "../components/ui/EmpyState";
+import RecipeCardSkeleton from "../components/ui/RecipeCardSkeleton";
 
 interface HomePageProps {
   favoriteRecipes: Recipe[];
@@ -51,7 +52,13 @@ export default function HomePage({
         <div className="mx-auto max-w-7xl px-6 py-16">
           <SearchBar value={search} onChange={setSearch} />
 
-          {isLoading && <p className="text-center">Caricamento...</p>}
+          {isLoading && (
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {Array.from({ length: 6 }).map((_, index) => (
+                <RecipeCardSkeleton key={index} />
+              ))}
+            </div>
+          )}
 
           {error && <p className="text-center text-red-600">{error}</p>}
 

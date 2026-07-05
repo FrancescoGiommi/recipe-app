@@ -1,6 +1,11 @@
 import { NavLink, Link } from "react-router-dom";
 
-export default function Navbar() {
+interface NavbarProps {
+  isDarkMode: boolean;
+  onToggleDarkMode: () => void;
+}
+
+export default function Navbar({ isDarkMode, onToggleDarkMode }: NavbarProps) {
   return (
     <>
       <header className="bg-white shadow-sm">
@@ -19,6 +24,20 @@ export default function Navbar() {
           >
             ❤️ Preferiti
           </NavLink>
+
+          <button
+            type="button"
+            onClick={onToggleDarkMode}
+            className="relative flex h-8 w-16 items-center rounded-full bg-orange-100 p-1 transition dark:bg-slate-700"
+          >
+            <span
+              className={`flex h-6 w-6 items-center justify-center rounded-full bg-white text-sm shadow transition-transform ${
+                isDarkMode ? "translate-x-8" : "translate-x-0"
+              }`}
+            >
+              {isDarkMode ? "🌙" : "☀️"}
+            </span>
+          </button>
         </nav>
       </header>
     </>

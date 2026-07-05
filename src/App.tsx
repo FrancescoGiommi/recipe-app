@@ -12,6 +12,7 @@ import RecipeDetailsPage from "./pages/RecipeDetailsPage";
 import FavoritesPage from "./pages/FavoritesPage";
 
 function App() {
+  const [isDarkMode, setIsDarkMode] = useState(false);
   const [favoriteRecipes, setFavoriteRecipes] = useState<Recipe[]>(() => {
     const savedFavorites = localStorage.getItem("favoriteRecipes");
 
@@ -42,10 +43,17 @@ function App() {
     localStorage.setItem("favoriteRecipes", JSON.stringify(favoriteRecipes));
   }, [favoriteRecipes]);
 
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", isDarkMode);
+  }, [isDarkMode]);
+
   return (
     <BrowserRouter>
       <Toaster position="top-right" />
-      <Navbar />
+      <Navbar
+        isDarkMode={isDarkMode}
+        onToggleDarkMode={() => setIsDarkMode((prev) => !prev)}
+      />
       <Routes>
         {/* Pagina Home */}
         <Route

@@ -34,10 +34,6 @@ function mapMealToRecipe(meal: MealDbMeal): Recipe {
 
   const difficulty = getDifficultyByIngrtedientsCount(ingredients.length);
 
-  const instructionsText = meal.strInstructions;
-
-  console.log(instructionsText);
-
   const instructions = meal.strInstructions
     .split(/\r?\n/)
     .filter((step) => step.trim() !== "")

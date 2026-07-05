@@ -2,7 +2,6 @@ import RecipeGrid from "../components/recipe/recipeGrid";
 import type { Recipe } from "../types/recipe";
 import { useState, useEffect } from "react";
 import { searchMeals } from "../services/mealDbService";
-import { mockRecipes } from "../data/mockRecipes";
 import SearchBar from "../components/ui/SearchBar";
 import EmptyState from "../components/ui/EmpyState";
 import RecipeCardSkeleton from "../components/ui/RecipeCardSkeleton";
@@ -20,10 +19,6 @@ export default function HomePage({
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
-
-  const filteredRecipes = mockRecipes.filter((recipe) =>
-    recipe.title.toLowerCase().trim().includes(search.toLowerCase().trim()),
-  );
 
   useEffect(() => {
     async function fetchRecipes() {

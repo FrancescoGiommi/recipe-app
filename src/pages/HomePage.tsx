@@ -21,6 +21,11 @@ export default function HomePage({
   const [error, setError] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState(search);
   const [selectedDifficulty, setSelectedDifficulty] = useState("all");
+  const [selectedTag, setSelectedTag] = useState("all");
+
+  const availableTags = Array.from(
+    new Set(recipes.flatMap((recipes) => recipes.tags)),
+  );
 
   // Chiamata API per ottenere le ricette
   useEffect(() => {
@@ -55,11 +60,13 @@ export default function HomePage({
 
   // Funzione per filtrare per difficoltà
   const filteredRecipes = recipes.filter((recipe) => {
-    if (selectedDifficulty === "all") {
-      return true;
-    }
+    const matchesDifficulty =
+      selectedDifficulty === "all" || recipe.difficulty === selectedDifficulty;
 
-    return recipe.difficulty === selectedDifficulty;
+    const matchesTag =
+      selectedTag === "all" || recipe.tags.includes(selectedTag);
+
+    return matchesDifficulty && matchesTag;
   });
 
   return (
@@ -78,16 +85,31 @@ export default function HomePage({
 
           {error && <p className="text-center text-red-600">{error}</p>}
 
-          <select
-            value={selectedDifficulty}
-            onChange={(event) => setSelectedDifficulty(event.target.value)}
-            className="mb-8 rounded-xl border border-orange-200 bg-white px-4 py-3 text-slate-700 outline-none focus:border-orange-500"
-          >
-            <option value="all">Tutte le difficoltà</option>
-            <option value="easy">Facile</option>
-            <option value="medium">Media</option>
-            <option value="hard">Difficile</option>
-          </select>
+          <div className="mb-8 flex flex-col gap-4 sm:flex-row">
+            <select
+              value={selectedDifficulty}
+              onChange={(event) => setSelectedDifficulty(event.target.value)}
+              className="mb-8 rounded-xl border border-orange-200 bg-white px-4 py-3 text-slate-700 outline-none focus:border-orange-500"
+            >
+              <option value="all">Tutte le difficoltà</option>
+              <option value="easy">Facile</option>
+              <option value="medium">Media</option>
+              <option value="hard">Difficile</option>
+            </select>
+
+            <select
+              value={selectedTag}
+              onChange={(event) => setSelectedTag(event.target.value)}
+              className="mb-8 rounded-xl border border-orange-200 bg-white px-4 py-3 text-slate-700 outline-none focus:border-orange-700"
+            >
+              <option value="all">Tutte le categorie</option>
+              {availableTags.map((tag) => (
+                <option key={tag} value={tag}>
+                  {tag}
+                </option>
+              ))}
+            </select>
+          </div>
 
           {!isLoading && !error && recipes.length === 0 ? (
             <EmptyState

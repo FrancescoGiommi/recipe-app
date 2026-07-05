@@ -1,7 +1,19 @@
 import type { MealDbSearchResponse, MealDbMeal } from "../types/mealDb";
-import type { Recipe, Ingredient, Instruction } from "../types/recipe";
+import type { Recipe, Ingredient } from "../types/recipe";
 
 const BASE_URL = "https://www.themealdb.com/api/json/v1/1";
+
+function getDifficultyByIngrtedientsCount(count: number): Recipe["difficulty"] {
+  if (count <= 5) {
+    return "easy";
+  }
+
+  if (count <= 10) {
+    return "medium";
+  }
+
+  return "hard";
+}
 
 function mapMealToRecipe(meal: MealDbMeal): Recipe {
   const ingredients: Ingredient[] = [];
@@ -19,6 +31,8 @@ function mapMealToRecipe(meal: MealDbMeal): Recipe {
       });
     }
   }
+
+  const difficulty = getDifficultyByIngrtedientsCount(ingredients.length);
 
   const instructionsText = meal.strInstructions;
 
@@ -40,7 +54,7 @@ function mapMealToRecipe(meal: MealDbMeal): Recipe {
 
     readyInMinutes: 0,
     servings: 0,
-    difficulty: "easy",
+    difficulty,
 
     tags: [meal.strCategory ?? "", meal.strArea ?? ""].filter(
       Boolean,

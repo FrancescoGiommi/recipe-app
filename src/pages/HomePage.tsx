@@ -71,7 +71,7 @@ export default function HomePage({
 
   return (
     <>
-      <main className="min-h-screen bg-orange-50">
+      <main className="min-h-screen bg-orange-50 transition-colors dark:bg-slate-950">
         <div className="mx-auto max-w-7xl px-6 py-16">
           <SearchBar value={search} onChange={setSearch} />
 
@@ -83,13 +83,17 @@ export default function HomePage({
             </div>
           )}
 
-          {error && <p className="text-center text-red-600">{error}</p>}
+          {error && (
+            <p className="text-center text-red-600 dark:text-red-400">
+              {error}
+            </p>
+          )}
 
           <div className="mb-8 flex flex-col gap-4 sm:flex-row">
             <select
               value={selectedDifficulty}
               onChange={(event) => setSelectedDifficulty(event.target.value)}
-              className="mb-8 rounded-xl border border-orange-200 bg-white px-4 py-3 text-slate-700 outline-none focus:border-orange-500"
+              className="mb-8 rounded-xl border border-orange-200 bg-white px-4 py-3 text-slate-700 outline-none transition-colors focus:border-orange-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
             >
               <option value="all">Tutte le difficoltà</option>
               <option value="easy">Facile</option>
@@ -100,7 +104,7 @@ export default function HomePage({
             <select
               value={selectedTag}
               onChange={(event) => setSelectedTag(event.target.value)}
-              className="mb-8 rounded-xl border border-orange-200 bg-white px-4 py-3 text-slate-700 outline-none focus:border-orange-700"
+              className="mb-8 rounded-xl border border-orange-200 bg-white px-4 py-3 text-slate-700 outline-none transition-colors focus:border-orange-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
             >
               <option value="all">Tutte le categorie</option>
               {availableTags.map((tag) => (
@@ -111,7 +115,7 @@ export default function HomePage({
             </select>
           </div>
 
-          {!isLoading && !error && recipes.length === 0 ? (
+          {!isLoading && !error && filteredRecipes.length === 0 ? (
             <EmptyState
               title="Nessuna ricetta trovata"
               description="Prova a cercare un altro piatto."

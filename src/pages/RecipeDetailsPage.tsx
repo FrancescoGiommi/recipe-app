@@ -48,15 +48,31 @@ export default function RecipeDetailsPage({
 
   const navigate = useNavigate();
   if (isLoading) {
-    return <p>Caricamento...</p>;
+    return (
+      <main>
+        <p className="min-h-screen bg-orange-50 p-6 text-slate-700 dark:bg-slate-950 dark:text-slate-300">
+          Caricamento...
+        </p>
+      </main>
+    );
   }
 
   if (error) {
-    return <p>{error}</p>;
+    return (
+      <main className="min-h-screen bg-orange-50 p-6 text-red-600 dark:bg-slate-950 dark:text-red-400">
+        <p>{error}</p>
+      </main>
+    );
   }
 
   if (!recipe) {
-    return <h1>Ricetta non trovata</h1>;
+    return (
+      <main className="min-h-screen bg-orange-50 p-6 dark:bg-slate-950">
+        <h1 className="text-2xl font-bold text-slate-900 dark:text-white">
+          Ricetta non trovata
+        </h1>
+      </main>
+    );
   }
 
   const isFavorite = favoriteRecipes.some(
@@ -65,9 +81,14 @@ export default function RecipeDetailsPage({
 
   return (
     <>
-      <main className="min-h-screen bg-orange-50">
+      <main className="min-h-screen bg-orange-50 dark:bg-slate-950">
         <div className="mx-auto max-w-5xl px-6 py-12">
-          <button onClick={() => navigate(-1)}>← Torna indietro</button>
+          <button
+            onClick={() => navigate(-1)}
+            className="text-slate-700 transition hover:text-orange-600 dark:text-slate-300 dark:hover:text-orange-400"
+          >
+            ← Torna indietro
+          </button>
           <div className="relative mt-6">
             {/* Bottone preferiti */}
             <button
@@ -76,7 +97,7 @@ export default function RecipeDetailsPage({
                 event.preventDefault();
                 onToggleFavorite(recipe);
               }}
-              className="absolute right-4 top-4 rounded-full bg-white p-2 shadow"
+              className="absolute right-4 top-4 rounded-full bg-white p-2 shadow transition hover:scale-105 dark:bg-slate-800"
             >
               {isFavorite ? (
                 <FaHeart className="text-red-500" />
@@ -94,10 +115,12 @@ export default function RecipeDetailsPage({
           </div>
 
           {/* Titolo */}
-          <h1 className="text-4xl font-bold text-slate-900">{recipe.title}</h1>
+          <h1 className="mt-6 text-4xl font-bold text-slate-900 dark:text-white">
+            {recipe.title}
+          </h1>
 
           {/* Durata, porzioni e difficoltà */}
-          <div className="mt-4 flex items-center gap-6 text-slate-700">
+          <div className="mt-4 flex flex-wrap items-center gap-6 text-slate-700 dark:text-slate-300">
             <div className="flex items-center gap-2">
               <FaClock className="text-orange-500" />
               <span>{recipe.readyInMinutes} min</span>
@@ -114,15 +137,22 @@ export default function RecipeDetailsPage({
           </div>
 
           {/* Descrizione */}
-          <p className="mt-4 text-slate-700">{recipe.description}</p>
+          <p className="mt-4 leading-relaxed text-slate-700 dark:text-slate-300">
+            {recipe.description}
+          </p>
 
           <div className="mt-8">
             {/* Ingredienti */}
-            <h2 className="text-2xl font-bold text-slate-900">Ingredienti</h2>
+            <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
+              Ingredienti
+            </h2>
 
             <ul className="mt-4 space-y-2">
               {recipe.ingredients.map((ingredient) => (
-                <li key={ingredient.id} className="text-slate-700">
+                <li
+                  key={ingredient.id}
+                  className="text-slate-700 dark:text-slate-300"
+                >
                   {ingredient.amount} {ingredient.unit} - {ingredient.name}
                 </li>
               ))}
@@ -131,12 +161,17 @@ export default function RecipeDetailsPage({
 
           <div className="mt-8">
             {/* Istruzioni e step */}
-            <h2 className="text-2xl font-bold text-slate-900">Procedimento</h2>
+            <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
+              Procedimento
+            </h2>
 
             <div className="mt-4 space-y-3">
               {recipe.instructions.map((instruction) => (
-                <p key={instruction.step} className="text-slate-700">
-                  <span className="font-bold text-orange-600">
+                <p
+                  key={instruction.step}
+                  className="leading-relaxed text-slate-700 dark:text-slate-300"
+                >
+                  <span className="font-bold text-orange-600 dark:text-orange-400">
                     Step {instruction.step}:
                   </span>{" "}
                   {instruction.text}
@@ -150,7 +185,7 @@ export default function RecipeDetailsPage({
             {recipe.tags.map((tag) => (
               <span
                 key={tag}
-                className="rounded-full bg-orange-100 px-3 py-1 text-sm font-medium text-orange-700"
+                className="rounded-full bg-orange-100 px-3 py-1 text-sm font-medium text-orange-700 dark:bg-orange-500/10 dark:text-orange-300"
               >
                 {tag}
               </span>

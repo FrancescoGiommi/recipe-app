@@ -23,6 +23,10 @@ export default function HomePage({
   const [selectedDifficulty, setSelectedDifficulty] = useState("all");
   const [selectedTag, setSelectedTag] = useState("all");
 
+  type SortOption = "name-asc" | "name-desc" | "time-asc" | "time-desc";
+
+  const [sortBy, setSortBy] = useState<SortOption>("name-asc");
+
   const availableTags = Array.from(
     new Set(recipes.flatMap((recipes) => recipes.tags)),
   );
@@ -69,6 +73,25 @@ export default function HomePage({
     return matchesDifficulty && matchesTag;
   });
 
+  const sortedRecipes = [...filteredRecipes].sort((a, b) => {
+    switch (sortBy) {
+      case "name-asc":
+        return a.title.localeCompare(b.title);
+
+      case "name-desc":
+        return b.title.localeCompare(a.title);
+
+      case "time-asc":
+        return a.readyInMinutes - b.readyInMinutes;
+
+      case "time-desc":
+        return b.readyInMinutes - a.readyInMinutes;
+
+      default:
+        return 0;
+    }
+  });
+
   return (
     <>
       <main className="min-h-screen bg-orange-50 transition-colors dark:bg-slate-950">
@@ -113,6 +136,18 @@ export default function HomePage({
                 </option>
               ))}
             </select>
+
+            {/* Ordinamento per nome e tempo */}
+            <select
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value as SortOption)}
+              className="mb-8 rounded-xl border border-orange-200 bg-white px-4 py-3 text-slate-700 outline-none transition-colors focus:border-orange-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
+            >
+              <option value="name-asc">Nome A-Z</option>
+              <option value="name-desc">Nome Z-A</option>
+              {/* <option value="time-asc">Tempo crescente</option>
+              <option value="time-desc">Tempo decrescente</option> */}
+            </select>
           </div>
 
           {!isLoading && !error && filteredRecipes.length === 0 ? (
@@ -124,7 +159,7 @@ export default function HomePage({
             !isLoading &&
             !error && (
               <RecipeGrid
-                recipes={filteredRecipes}
+                recipes={sortedRecipes}
                 favoriteRecipes={favoriteRecipes}
                 onToggleFavorite={onToggleFavorite}
               />

@@ -22,6 +22,7 @@ export default function HomePage({
   const [debouncedSearch, setDebouncedSearch] = useState(search);
   const [selectedDifficulty, setSelectedDifficulty] = useState("all");
   const [selectedTag, setSelectedTag] = useState("all");
+  const [currentPage, setCurrentPage] = useState(1);
 
   type SortOption = "name-asc" | "name-desc" | "time-asc" | "time-desc";
 
@@ -92,6 +93,15 @@ export default function HomePage({
     }
   });
 
+  const recipesPerPage = 9;
+
+  const totalPages = Math.ceil(sortedRecipes.length / recipesPerPage);
+
+  const paginatedRecipes = sortedRecipes.slice(
+    (currentPage - 1) * recipesPerPage,
+    currentPage * recipesPerPage,
+  );
+
   return (
     <>
       <main className="min-h-screen bg-orange-50 transition-colors dark:bg-slate-950">
@@ -159,12 +169,36 @@ export default function HomePage({
             !isLoading &&
             !error && (
               <RecipeGrid
-                recipes={sortedRecipes}
+                recipes={paginatedRecipes}
                 favoriteRecipes={favoriteRecipes}
                 onToggleFavorite={onToggleFavorite}
               />
             )
           )}
+          {/* Paginazione */}
+          <div className="mt-10 flex justify-center gap-3">
+            <button
+              type="button"
+              disabled={currentPage === 1}
+              onClick={() => setCurrentPage((page) => page - 1)}
+              className="rounded-xl bg-orange-100 px-4 py-2 text-orange-700 disabled:opacity-50 dark:bg-slate-800 dark:text-slate-200"
+            >
+              Precedente
+            </button>
+
+            <span className="px-4 py-2 text-slate-700 dark:text-slate-300">
+              Pagina {currentPage} di {totalPages}
+            </span>
+
+            <button
+              type="button"
+              disabled={currentPage === totalPages}
+              onClick={() => setCurrentPage((page) => page + 1)}
+              className="rounded-xl bg-orange-100 px-4 py-2 text-orange-700 disabled:opacity-50 dark:bg-slate-800 dark:text-slate-200"
+            >
+              Successiva
+            </button>
+          </div>
         </div>
       </main>
     </>

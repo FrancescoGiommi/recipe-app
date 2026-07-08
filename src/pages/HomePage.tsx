@@ -63,6 +63,10 @@ export default function HomePage({
     return () => clearTimeout(timer);
   }, [search]);
 
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [debouncedSearch, selectedDifficulty, selectedTag, sortBy]);
+
   // Funzione per filtrare per difficoltà
   const filteredRecipes = recipes.filter((recipe) => {
     const matchesDifficulty =
@@ -176,29 +180,33 @@ export default function HomePage({
             )
           )}
           {/* Paginazione */}
-          <div className="mt-10 flex justify-center gap-3">
-            <button
-              type="button"
-              disabled={currentPage === 1}
-              onClick={() => setCurrentPage((page) => page - 1)}
-              className="rounded-xl bg-orange-100 px-4 py-2 text-orange-700 disabled:opacity-50 dark:bg-slate-800 dark:text-slate-200"
-            >
-              Precedente
-            </button>
+          {!isLoading && !error && totalPages > 1 && (
+            <div className="mt-10 flex justify-center gap-3">
+              <button
+                type="button"
+                disabled={currentPage <= 1}
+                onClick={() => setCurrentPage((page) => Math.max(page - 1, 1))}
+                className="rounded-xl bg-orange-100 px-4 py-2 text-orange-700 disabled:opacity-50 dark:bg-slate-800 dark:text-slate-200"
+              >
+                Precedente
+              </button>
 
-            <span className="px-4 py-2 text-slate-700 dark:text-slate-300">
-              Pagina {currentPage} di {totalPages}
-            </span>
+              <span className="px-4 py-2 text-slate-700 dark:text-slate-300">
+                Pagina {currentPage} di {totalPages}
+              </span>
 
-            <button
-              type="button"
-              disabled={currentPage === totalPages}
-              onClick={() => setCurrentPage((page) => page + 1)}
-              className="rounded-xl bg-orange-100 px-4 py-2 text-orange-700 disabled:opacity-50 dark:bg-slate-800 dark:text-slate-200"
-            >
-              Successiva
-            </button>
-          </div>
+              <button
+                type="button"
+                disabled={currentPage >= totalPages}
+                onClick={() =>
+                  setCurrentPage((page) => Math.min(page + 1, totalPages))
+                }
+                className="rounded-xl bg-orange-100 px-4 py-2 text-orange-700 disabled:opacity-50 dark:bg-slate-800 dark:text-slate-200"
+              >
+                Successiva
+              </button>
+            </div>
+          )}
         </div>
       </main>
     </>

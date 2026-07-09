@@ -35,9 +35,11 @@ function RecipeCard({ recipe, isFavorite, onToggleFavorite }: RecipeCardProps) {
           />
 
           <div className="p-4">
-            <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100">
-              {recipe.title}
-            </h2>
+            <div className="min-h-[64px]">
+              <h2 className="line-clamp-2 text-xl font-bold text-slate-900 dark:text-slate-100">
+                {recipe.title}
+              </h2>
+            </div>
 
             {recipe.readyInMinutes > 0 && recipe.servings > 0 && (
               <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">

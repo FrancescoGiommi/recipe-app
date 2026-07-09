@@ -38,7 +38,7 @@ function mapSpoonacularRecipe(recipe: SpoonacularRecipe): Recipe {
     id: recipe.id,
     title: recipe.title,
     image: recipe.image,
-    description: recipe.summary,
+    description: cleanHtmlText(recipe.summary),
     readyInMinutes: recipe.readyInMinutes,
     servings: recipe.servings,
     difficulty: "easy",
@@ -74,4 +74,11 @@ export async function getSpoonacularRecipeById(
   const data: SpoonacularRecipe = await response.json();
 
   return mapSpoonacularRecipe(data);
+}
+
+function cleanHtmlText(html: string): string {
+  const parser = new DOMParser();
+  const document = parser.parseFromString(html, "text/html");
+
+  return document.body.textContent ?? "";
 }

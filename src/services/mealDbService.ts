@@ -65,8 +65,12 @@ function mapMealToRecipe(meal: MealDbMeal): Recipe {
 export async function searchMeals(query: string): Promise<Recipe[]> {
   const response = await fetch(`${BASE_URL}/search.php?s=${query}`);
 
+  if (response.status === 402 || response.status === 429) {
+    throw new Error("Limite giornaliero dell'API raggiunto. Riprova domani.");
+  }
+
   if (!response.ok) {
-    throw new Error("Errore durante il recupero delle ricette");
+    throw new Error("Errore durante il caricamento delle ricette");
   }
 
   const data: MealDbSearchResponse = await response.json();
@@ -80,6 +84,10 @@ export async function searchMeals(query: string): Promise<Recipe[]> {
 
 export async function getMealById(id: string): Promise<Recipe | null> {
   const response = await fetch(`${BASE_URL}/lookup.php?i=${id}`);
+
+  if (response.status === 402 || response.status === 429) {
+    throw new Error("Limite giornaliero dell'API raggiunto. Riprova domani.");
+  }
 
   if (!response.ok) {
     throw new Error("Errore durante il recupero della ricetta");

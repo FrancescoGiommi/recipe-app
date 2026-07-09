@@ -1,7 +1,7 @@
 import RecipeGrid from "../components/recipe/recipeGrid";
 import type { Recipe } from "../types/recipe";
 import { useState, useEffect } from "react";
-import { searchMeals } from "../services/mealDbService";
+import { searchSpoonacularRecipes } from "../services/SpoonacularService";
 import SearchBar from "../components/ui/SearchBar";
 import EmptyState from "../components/ui/EmpyState";
 import RecipeCardSkeleton from "../components/ui/RecipeCardSkeleton";
@@ -39,7 +39,7 @@ export default function HomePage({
         setIsLoading(true);
         setError("");
 
-        const data = await searchMeals(debouncedSearch);
+        const data = await searchSpoonacularRecipes(debouncedSearch);
         setRecipes(data);
       } catch (error) {
         if (error instanceof Error) {

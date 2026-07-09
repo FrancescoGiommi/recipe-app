@@ -2,8 +2,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import type { Recipe } from "../types/recipe";
 import { useState, useEffect } from "react";
 import DifficultyIndicator from "../components/ui/DifficultyIndicator";
-import { getMealById } from "../services/mealDbService";
-
+import { getSpoonacularRecipeById } from "../services/SpoonacularService";
 // Icone
 import { FaHeart, FaRegHeart, FaClock, FaUsers } from "react-icons/fa";
 
@@ -30,7 +29,7 @@ export default function RecipeDetailsPage({
         setIsLoading(true);
         setError("");
 
-        const data = await getMealById(id);
+        const data = await getSpoonacularRecipeById(id);
         setRecipe(data);
       } catch (error) {
         if (error instanceof Error) {

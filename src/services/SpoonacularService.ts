@@ -42,10 +42,23 @@ function mapSpoonacularRecipe(recipe: SpoonacularRecipe): Recipe {
     readyInMinutes: recipe.readyInMinutes,
     servings: recipe.servings,
     difficulty: "easy",
-    ingredients: [],
-    instructions: [],
-    tags: recipe.dishTypes,
     isFavorite: false,
+
+    ingredients:
+      recipe.extendedIngredients?.map((ingredient) => ({
+        id: ingredient.id,
+        name: ingredient.name,
+        amount: ingredient.amount,
+        unit: ingredient.unit,
+      })) ?? [],
+
+    instructions:
+      recipe.analyzedInstructions?.[0]?.steps.map((step) => ({
+        step: step.number,
+        text: step.step,
+      })) ?? [],
+
+    tags: recipe.dishTypes ?? [],
   };
 }
 
